@@ -1,0 +1,3397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INNIT NETWORKS KE | Community Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-black: #0E0E10;
+            --primary-yellow: #FFD700;
+            --yellow-dark: #FFA500;
+            --yellow-light: #FFFACD;
+            --soft-white: #F5F5F5;
+            --dark-grey: #1C1C1E;
+            --neon-blue: #00B4FF;
+            --amber: #FFC107;
+            --radius: 12px;
+            --transition: all 0.3s ease;
+            --success: #4CAF50;
+            --error: #f44336;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-black);
+            color: var(--soft-white);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .page-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            opacity: 0.15;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Navigation */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(14, 14, 16, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: var(--transition);
+            border-bottom: 2px solid var(--primary-yellow);
+        }
+
+        .navbar.scrolled {
+            padding: 15px 40px;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.2);
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--soft-white);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--primary-yellow);
+        }
+
+        .logo-icon {
+            color: var(--primary-yellow);
+            animation: pulse 2s infinite;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--soft-white);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-yellow);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-yellow);
+        }
+
+        .nav-links a.active {
+            color: var(--primary-yellow);
+        }
+
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .btn-login {
+            background: transparent;
+            color: var(--soft-white);
+            border: 1px solid var(--dark-grey);
+            padding: 8px 20px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-login:hover {
+            border-color: var(--primary-yellow);
+            color: var(--primary-yellow);
+        }
+
+        .btn-join {
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            border: none;
+            padding: 10px 25px;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-join:hover {
+            background: var(--yellow-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.3);
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .user-profile:hover {
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .user-avatar {
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .user-name {
+            font-weight: 500;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--primary-yellow);
+        }
+
+        /* Page Container */
+        .page-container {
+            padding-top: 100px;
+            min-height: 100vh;
+        }
+
+        /* Home Page Styles */
+        .hero {
+            position: relative;
+            height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .hero .highlight {
+            color: var(--primary-yellow);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease 0.2s forwards;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease 0.4s forwards;
+        }
+
+        /* Common Button Styles */
+        .btn-primary {
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            border: none;
+            padding: 15px 30px;
+            border-radius: var(--radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.3);
+            background: var(--yellow-dark);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--soft-white);
+            border: 2px solid var(--primary-yellow);
+            padding: 15px 30px;
+            border-radius: var(--radius);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--primary-yellow);
+        }
+
+        /* Page Content Styles */
+        .page-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-yellow);
+        }
+
+        .page-subtitle {
+            font-size: 1.5rem;
+            color: var(--primary-yellow);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .content-section {
+            padding: 60px 0;
+        }
+
+        /* Form Styles */
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-card {
+            background: var(--dark-grey);
+            border-radius: var(--radius);
+            padding: 40px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .form-title {
+            font-size: 1.8rem;
+            color: var(--primary-yellow);
+            margin-bottom: 10px;
+        }
+
+        .form-subtitle {
+            color: #aaa;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: var(--primary-yellow);
+        }
+
+        .form-label.required::after {
+            content: ' *';
+            color: var(--error);
+        }
+
+        .form-input, .form-textarea, .form-select {
+            width: 100%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: var(--radius);
+            color: var(--soft-white);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-input:focus, .form-textarea:focus, .form-select:focus {
+            outline: none;
+            border-color: var(--primary-yellow);
+            box-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
+        }
+
+        .form-textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-select {
+            appearance: none;
+            background-image: url("images/411YHfk+qSL-removebg-preview.png");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-footer {
+            margin-top: 30px;
+            text-align: center;
+        }
+
+        .form-link {
+            color: var(--primary-yellow);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .form-link:hover {
+            text-decoration: underline;
+        }
+
+        .form-message {
+            padding: 15px;
+            border-radius: var(--radius);
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .form-message.success {
+            background: rgba(76, 175, 80, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+            display: block;
+        }
+
+        .form-message.error {
+            background: rgba(244, 67, 54, 0.1);
+            border: 1px solid var(--error);
+            color: var(--error);
+            display: block;
+        }
+
+        .form-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .form-checkbox input {
+            margin-top: 5px;
+        }
+
+        .form-checkbox label {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        .form-checkbox a {
+            color: var(--primary-yellow);
+            text-decoration: none;
+        }
+
+        .form-checkbox a:hover {
+            text-decoration: underline;
+        }
+
+        /* Stats Section */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .stat-item {
+            padding: 30px;
+            border-radius: var(--radius);
+            background: rgba(255, 255, 255, 0.05);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 215, 0, 0.1);
+        }
+
+        .stat-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-yellow);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: var(--primary-yellow);
+            margin-bottom: 10px;
+        }
+
+        .stat-label {
+            font-size: 1.1rem;
+            opacity: 0.8;
+        }
+
+        /* Grid Layouts */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin: 40px 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        /* Card Styles */
+        .card {
+            background: var(--dark-grey);
+            border-radius: var(--radius);
+            padding: 30px;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-yellow);
+            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.1);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            color: var(--primary-yellow);
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: var(--primary-yellow);
+        }
+
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .video-card {
+            background: var(--dark-grey);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: var(--transition);
+            position: relative;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .video-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--primary-yellow);
+            box-shadow: 0 15px 30px rgba(255, 215, 0, 0.1);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            height: 180px;
+            overflow: hidden;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.1);
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: var(--transition);
+        }
+
+        .video-card:hover .video-overlay {
+            opacity: 1;
+        }
+
+        .play-btn {
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            transform: scale(0.8);
+            transition: var(--transition);
+        }
+
+        .video-card:hover .play-btn {
+            transform: scale(1);
+        }
+
+        .video-info {
+            padding: 20px;
+        }
+
+        .video-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .video-meta {
+            display: flex;
+            justify-content: space-between;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Forum Styles */
+        .forum-category {
+            margin-bottom: 40px;
+        }
+
+        .forum-title {
+            font-size: 1.8rem;
+            color: var(--primary-yellow);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .forum-thread {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius);
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: var(--transition);
+            border-left: 4px solid transparent;
+        }
+
+        .forum-thread:hover {
+            background: rgba(255, 215, 0, 0.1);
+            border-left-color: var(--primary-yellow);
+            transform: translateX(5px);
+        }
+
+        .thread-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--primary-yellow);
+        }
+
+        .thread-meta {
+            display: flex;
+            gap: 20px;
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        .create-thread-btn {
+            margin-bottom: 30px;
+        }
+
+        /* Events Styles */
+        .event-card {
+            background: var(--dark-grey);
+            border-radius: var(--radius);
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .event-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.2);
+        }
+
+        .live-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+        }
+
+        .event-time {
+            color: var(--neon-blue);
+            font-weight: 600;
+            margin: 15px 0;
+        }
+
+        .countdown {
+            display: flex;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .countdown-item {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            min-width: 60px;
+        }
+
+        .countdown-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-yellow);
+        }
+
+        .countdown-label {
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+
+        .rsvp-form {
+            margin-top: 20px;
+        }
+
+        /* Polls Styles */
+        .poll-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius);
+            padding: 30px;
+            margin: 30px 0;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .poll-question {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            color: var(--primary-yellow);
+        }
+
+        .poll-option {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: var(--radius);
+            padding: 15px;
+            margin-bottom: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .poll-option:hover {
+            background: rgba(255, 215, 0, 0.2);
+        }
+
+        .poll-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            background: rgba(255, 215, 0, 0.3);
+            width: 0%;
+            transition: width 1s ease;
+        }
+
+        .poll-text {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .poll-percentage {
+            font-weight: 600;
+            color: var(--primary-yellow);
+        }
+
+        .create-poll-form {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .poll-option-input {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .poll-option-input input {
+            flex: 1;
+        }
+
+        .add-option-btn, .remove-option-btn {
+            background: transparent;
+            color: var(--primary-yellow);
+            border: 1px solid var(--primary-yellow);
+            width: 40px;
+            height: 40px;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .remove-option-btn {
+            color: var(--error);
+            border-color: var(--error);
+        }
+
+        .add-option-btn:hover {
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .remove-option-btn:hover {
+            background: rgba(244, 67, 54, 0.1);
+        }
+
+        /* Leaderboard Styles */
+        .leaderboard-table {
+            background: var(--dark-grey);
+            border-radius: var(--radius);
+            overflow: hidden;
+            margin-top: 30px;
+            border: 1px solid rgba(255, 215, 0, 0.2);
+        }
+
+        .leaderboard-header {
+            display: grid;
+            grid-template-columns: 50px 1fr 100px 100px;
+            padding: 20px;
+            background: rgba(255, 215, 0, 0.2);
+            font-weight: 600;
+        }
+
+        .leaderboard-row {
+            display: grid;
+            grid-template-columns: 50px 1fr 100px 100px;
+            padding: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+
+        .leaderboard-row:hover {
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .rank {
+            font-weight: 700;
+            color: var(--primary-yellow);
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+        }
+
+        .badge {
+            background: var(--neon-blue);
+            color: white;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        /* About Team */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .team-member {
+            text-align: center;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: var(--radius);
+            transition: var(--transition);
+        }
+
+        .team-member:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 215, 0, 0.1);
+        }
+
+        .member-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--primary-yellow);
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: var(--primary-black);
+            font-weight: 700;
+        }
+
+        .member-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--primary-yellow);
+        }
+
+        .member-role {
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: var(--dark-grey);
+            border-radius: var(--radius);
+            width: 100%;
+            max-width: 500px;
+            max-height: 90vh;
+            overflow-y: auto;
+            border: 2px solid var(--primary-yellow);
+            position: relative;
+        }
+
+        .modal-header {
+            padding: 25px 30px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: var(--primary-yellow);
+        }
+
+        .modal-close {
+            background: transparent;
+            border: none;
+            color: var(--soft-white);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--primary-yellow);
+        }
+
+        .modal-body {
+            padding: 30px;
+        }
+
+        /* User Profile */
+        .profile-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            font-weight: 700;
+            margin: 0 auto 20px;
+        }
+
+        .profile-name {
+            font-size: 2rem;
+            color: var(--primary-yellow);
+            margin-bottom: 10px;
+        }
+
+        .profile-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .profile-badge {
+            background: rgba(255, 215, 0, 0.2);
+            color: var(--primary-yellow);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid var(--primary-yellow);
+        }
+
+        /* Footer */
+        .footer {
+            background: #0a0a0b;
+            padding: 60px 0 30px;
+            border-top: 2px solid var(--primary-yellow);
+            margin-top: 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-logo {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 20px;
+        }
+
+        .footer-links h3 {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            color: var(--primary-yellow);
+        }
+
+        .footer-links ul {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+
+        .footer-links a {
+            color: #aaa;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover {
+            color: var(--primary-yellow);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--dark-grey);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .social-icon:hover {
+            background: var(--primary-yellow);
+            color: var(--primary-black);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #aaa;
+            font-size: 0.9rem;
+        }
+
+        /* Page Indicator */
+        .page-indicator {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 40px;
+        }
+
+        .page-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: var(--transition);
+        }
+
+        .page-dot.active {
+            background: var(--primary-yellow);
+            transform: scale(1.2);
+        }
+
+        /* Animations */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.6; }
+            100% { opacity: 1; }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Mobile Responsive */
+        @media (max-width: 992px) {
+            .nav-links, .user-actions {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1rem;
+            }
+
+            .page-title {
+                font-size: 2.2rem;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 15px 20px;
+            }
+
+            .hero-btns {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn-primary, .btn-secondary {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+
+            .leaderboard-header, .leaderboard-row {
+                grid-template-columns: 40px 1fr 80px 80px;
+                padding: 15px;
+                font-size: 0.9rem;
+            }
+
+            .modal-content {
+                max-height: 80vh;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Image -->
+    <div class="page-background" id="pageBackground"></div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <a href="#home" class="logo" onclick="loadPage('home')">
+            <i class="fas fa-podcast logo-icon"></i>
+            INNIT<span>NETWORKS</span>
+        </a>
+        
+        <ul class="nav-links">
+            <li><a href="#home" class="active" onclick="loadPage('home')">Home</a></li>
+            <li><a href="#about" onclick="loadPage('about')">About</a></li>
+            <li><a href="#videos" onclick="loadPage('videos')">Videos</a></li>
+            <li><a href="#community" onclick="loadPage('community')">Community</a></li>
+            <li><a href="#events" onclick="loadPage('events')">Live Events</a></li>
+            <li><a href="#polls" onclick="loadPage('polls')">Polls</a></li>
+            <li><a href="#contact" onclick="loadPage('contact')">Contact</a></li>
+        </ul>
+        
+        <div class="user-actions" id="userActions">
+            <div class="user-profile" id="userProfile" style="display: none;" onclick="showProfileModal()">
+                <div class="user-avatar" id="userAvatar">TJ</div>
+                <div class="user-name" id="userName">TechJedi</div>
+            </div>
+            <button class="btn-login" id="loginButton" onclick="showLoginModal()">Login</button>
+            <button class="btn-join" onclick="showRegisterModal()">Join Community</button>
+        </div>
+        
+        <div class="hamburger" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Main Content Container -->
+    <div class="page-container" id="pageContainer">
+        <!-- Home Page (Default) -->
+        <div id="home" class="page-content active">
+            <div class="hero">
+                <div class="hero-content">
+                    <h1>Where Listeners Become <span class="highlight">Family</span></h1>
+                    <p>Join Africa's most vibrant digital community. Engage with creators, share ideas, and help shape the future of tech and culture content.</p>
+                    <div class="hero-btns">
+                        <button class="btn-primary" onclick="showRegisterModal()">Join The Network</button>
+                        <button class="btn-secondary" onclick="loadPage('videos')">Watch Latest Episode</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container">
+                <!-- Stats Section -->
+                <div class="content-section">
+                    <h2 class="page-title">Community Stats</h2>
+                    <div class="stats-container">
+                        <div class="stat-item fade-in">
+                            <div class="stat-number" data-count="17,700">0</div>
+                            <div class="stat-label">Community Members</div>
+                        </div>
+                        <div class="stat-item fade-in">
+                            <div class="stat-number" data-count="293">0</div>
+                            <div class="stat-label">Episodes</div>
+                        </div>
+                        <div class="stat-item fade-in">
+                            <div class="stat-number" data-count="15">0</div>
+                            <div class="stat-label">Live Events</div>
+                        </div>
+                        <div class="stat-item fade-in">
+                            <div class="stat-number" data-count="98">0</div>
+                            <div class="stat-label">Polls Created</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Content -->
+                <div class="content-section">
+                    <h2 class="page-title">Featured Content</h2>
+                    <div class="video-grid">
+                        <div class="video-card fade-in">
+                            <div class="video-thumbnail">
+                                <img src="images/hq720.jpg" alt="Tech Talk">
+                                <div class="video-overlay">
+                                    <div class="play-btn">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">The Future of AI in Africa</h3>
+                                <div class="video-meta">
+                                    <span><i class="far fa-calendar"></i> 2 days ago</span>
+                                    <span><i class="far fa-eye"></i> 24.5K views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="video-card fade-in">
+                            <div class="video-thumbnail">
+                                <img src="images/hq720 (1).jpg" alt="Culture">
+                                <div class="video-overlay">
+                                    <div class="play-btn">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">Nairobi's Tech Culture Explosion</h3>
+                                <div class="video-meta">
+                                    <span><i class="far fa-calendar"></i> 1 week ago</span>
+                                    <span><i class="far fa-eye"></i> 18.2K views</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="video-card fade-in">
+                            <div class="video-thumbnail">
+                                <img src="images/maxresdefault (1).jpg" alt="Startup">
+                                <div class="video-overlay">
+                                    <div class="play-btn">
+                                        <i class="fas fa-play"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="video-info">
+                                <h3 class="video-title">Building Startups in Kenya 2024</h3>
+                                <div class="video-meta">
+                                    <span><i class="far fa-calendar"></i> 2 weeks ago</span>
+                                    <span><i class="far fa-eye"></i> 32.7K views</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Community Features -->
+                <div class="content-section">
+                    <h2 class="page-title">Community Hub</h2>
+                    <div class="grid-3">
+                        <div class="card fade-in">
+                            <div class="card-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <h3 class="card-title">Discussion Forums</h3>
+                            <p>Join vibrant conversations about tech, culture, and everything in between. Share your thoughts and connect with like-minded individuals.</p>
+                            <button class="btn-secondary" style="margin-top: 15px;" onclick="loadPage('community')">Join Discussions</button>
+                        </div>
+
+                        <div class="card fade-in">
+                            <div class="card-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h3 class="card-title">Live Chat</h3>
+                            <p>Real-time conversations during premieres and live events. Engage directly with hosts and fellow community members.</p>
+                            <button class="btn-secondary" style="margin-top: 15px;" onclick="loadPage('events')">View Live Events</button>
+                        </div>
+
+                        <div class="card fade-in">
+                            <div class="card-icon">
+                                <i class="fas fa-user-friends"></i>
+                            </div>
+                            <h3 class="card-title">Member Profiles</h3>
+                            <p>Create your profile, earn badges, and build your reputation as a valued member of the INNIT community.</p>
+                            <button class="btn-secondary" style="margin-top: 15px;" onclick="showRegisterModal()">Create Profile</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- About Page -->
+        <div id="about" class="page-content" style="display: none;">
+            <div class="container">
+                <div class="content-section">
+                    <h1 class="page-title">About INNIT NETWORKS</h1>
+                    
+                    <!-- Team Registration Form -->
+                    <div class="form-container fade-in">
+                        <div class="form-card">
+                            <div class="form-header">
+                                <h2 class="form-title">Join Our Team</h2>
+                                <p class="form-subtitle">Interested in working with us? Apply here.</p>
+                            </div>
+                            
+                            <form id="teamApplicationForm">
+                                <div class="form-message" id="teamFormMessage"></div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label required" for="teamFirstName">First Name</label>
+                                        <input type="text" id="teamFirstName" class="form-input" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label required" for="teamLastName">Last Name</label>
+                                        <input type="text" id="teamLastName" class="form-input" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label required" for="teamEmail">Email Address</label>
+                                    <input type="email" id="teamEmail" class="form-input" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label required" for="teamPhone">Phone Number</label>
+                                    <input type="tel" id="teamPhone" class="form-input" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label required" for="teamPosition">Position Applying For</label>
+                                    <select id="teamPosition" class="form-select" required>
+                                        <option value="">Select a position</option>
+                                        <option value="content-creator">Content Creator</option>
+                                        <option value="community-manager">Community Manager</option>
+                                        <option value="video-editor">Video Editor</option>
+                                        <option value="social-media">Social Media Manager</option>
+                                        <option value="partnerships">Partnerships Manager</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="teamPortfolio">Portfolio/Website</label>
+                                    <input type="url" id="teamPortfolio" class="form-input" placeholder="https://">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label required" for="teamExperience">Relevant Experience</label>
+                                    <textarea id="teamExperience" class="form-textarea" rows="4" required></textarea>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label required" for="teamMotivation">Why do you want to join INNIT NETWORKS?</label>
+                                    <textarea id="teamMotivation" class="form-textarea" rows="4" required></textarea>
+                                </div>
+                                
+                                <div class="form-checkbox">
+                                    <input type="checkbox" id="teamConsent" required>
+                                    <label for="teamConsent">I agree to the processing of my personal data for recruitment purposes.</label>
+                                </div>
+                                
+                                <div class="form-footer">
+                                    <button type="submit" class="btn-primary" style="width: 100%;">Submit Application</button>
+                                    <p style="margin-top: 15px; color: #aaa;">We'll get back to you within 7-10 business days.</p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <div class="grid-2" style="margin-top: 60px;">
+                        <div>
+                            <h2 class="page-subtitle">Our Story</h2>
+                            <p>Founded in 2020, INNIT NETWORKS began as a small podcast among friends passionate about technology, culture, and the African digital renaissance. What started as casual conversations has grown into a vibrant community of over 12,000 members across the continent.</p>
+                            <p>We believe in the power of African voices shaping the future of technology. Our mission is to create a platform where ideas are shared, connections are made, and innovation is nurtured.</p>
+                        </div>
+                        <div>
+                            <h2 class="page-subtitle">Our Mission</h2>
+                            <p>To democratize tech education and foster a community-driven approach to digital innovation in Africa. We're building bridges between emerging talents and established industry leaders.</p>
+                            <h2 class="page-subtitle" style="margin-top: 30px;">Our Vision</h2>
+                            <p>A future where African tech creators are at the forefront of global innovation, supported by a strong, interconnected community that shares knowledge and opportunities.</p>
+                        </div>
+                    </div>
+
+                    <h2 class="page-subtitle" style="margin-top: 60px;">Meet The Team</h2>
+                    <div class="team-grid">
+                        <div class="team-member fade-in">
+                            <div class="member-avatar">TJ</div>
+                            <h3 class="member-name">Chief Jeff.</h3>
+                            <p class="member-role">Founder & Host</p>
+                            <p>Tech entrepreneur with 10+ years in digital media. Passionate about African tech storytelling.</p>
+                        </div>
+
+                        <div class="team-member fade-in">
+                            <div class="member-avatar">MK</div>
+                            <h3 class="member-name">KevMan.</h3>
+                            <p class="member-role">Community Lead</p>
+                            <p>Building inclusive digital communities across Africa. Focused on member engagement and growth.</p>
+                        </div>
+
+                        <div class="team-member fade-in">
+                            <div class="member-avatar">KA</div>
+                            <h3 class="member-name">Kofi A.</h3>
+                            <p class="member-role">Content Director</p>
+                            <p>Former tech journalist now curating content that matters for Africa's digital future.</p>
+                        </div>
+
+                        <div class="team-member fade-in">
+                            <div class="member-avatar">LD</div>
+                            <h3 class="member-name">Lena D.</h3>
+                            <p class="member-role">Partnerships Manager</p>
+                            <p>Connecting African creators with global opportunities and sponsorship deals.</p>
+                        </div>
+                    </div>
+
+                    <div class="grid-2" style="margin-top: 60px;">
+                        <div class="card">
+                            <h3 class="card-title">Our Values</h3>
+                            <ul style="padding-left: 20px; margin-top: 15px;">
+                                <li style="margin-bottom: 10px;"><strong>Community First:</strong> Our members drive our content and direction</li>
+                                <li style="margin-bottom: 10px;"><strong>Authenticity:</strong> Real conversations, real people, real impact</li>
+                                <li style="margin-bottom: 10px;"><strong>Innovation:</strong> Always exploring new ideas and formats</li>
+                                <li style="margin-bottom: 10px;"><strong>Inclusion:</strong> Creating space for diverse voices and perspectives</li>
+                                <li style="margin-bottom: 10px;"><strong>Impact:</strong> Measuring success by community growth and member success</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h3 class="card-title">Join Our Journey</h3>
+                            <p style="margin-top: 15px;">We're always looking for passionate individuals to join our community, contribute content, or partner with us. Whether you're a tech enthusiast, content creator, or industry expert, there's a place for you at INNIT NETWORKS.</p>
+                            <button class="btn-primary" style="margin-top: 20px;" onclick="loadPage('contact')">Get In Touch</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Videos Page -->
+        <div id="videos" class="page-content" style="display: none;">
+            <div class="container">
+                <div class="content-section">
+                    <h1 class="page-title">Video Library</h1>
+                    <p style="margin-bottom: 30px; font-size: 1.1rem;">Browse our collection of tech talks, interviews, and cultural documentaries. New content added weekly.</p>
+
+                    <!-- Video Request Form -->
+                    <div class="form-container fade-in" style="margin-bottom: 60px;">
+                        <div class="form-card">
+                            <div class="form-header">
+                                <h2 class="form-title">Request a Video Topic</h2>
+                                <p class="form-subtitle">Suggest topics you'd like us to cover in future episodes</p>
+                            </div>
+                            
+                            <form id="videoRequestForm">
+                                <div class="form-message" id="videoFormMessage"></div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label required" for="videoTopic">Topic Title</label>
+                                    <input type="text" id="videoTopic" class="form-input" placeholder="e.g., 'Blockchain in African Agriculture'" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label required" for="videoCategory">Category</label>
+                                    <select id="videoCategory" class="form-select" required>
+                                        <option value="">Select a category</option>
+                                        <option value="tech">Tech & Innovation</option>
+                                        <option value="culture">Culture & Society</option>
+                                        <option value="business">Startups & Business</option>
+                                        <option value="education">Digital Skills & Education</option>
+                                        <option value="interviews">Interviews & Conversations</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label required" for="videoDescription">Description</label>
+                                    <textarea id="videoDescription" class="form-textarea" rows="4" placeholder="Tell us more about this topic and why it's important..." required></textarea>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label" for="videoName">Your Name (Optional)</label>
+                                        <input type="text" id="videoName" class="form-input">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="videoEmail">Your Email (Optional)</label>
+                                        <input type="email" id="videoEmail" class="form-input">
+                                    </div>
+                                </div>
+                                
+                                <div class="form-footer">
+                                    <button type="submit" class="btn-primary" style="width: 100%;">Submit Topic Request</button>
+                                    <p style="margin-top: 15px; color: #aaa;">Popular suggestions may be featured in upcoming episodes!</p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 40px;">
+                        <h2 class="page-subtitle">Latest Uploads</h2>
+                        <div class="video-grid">
+                            <div class="video-card fade-in">
+                                <div class="video-thumbnail">
+                                    <img src="images/hqdefault.jpg" alt="AI Ethics">
+                                    <div class="video-overlay">
+                                        <div class="play-btn">
+                                            <i class="fas fa-play"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="video-info">
+                                    <h3 class="video-title">Ethical AI Development in Africa</h3>
+                                    <div class="video-meta">
+                                        <span><i class="far fa-calendar"></i> 1 day ago</span>
+                                        <span>45:22</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="video-card fade-in">
+                                <div class="video-thumbnail">
+                                    <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Startup Funding">
+                                    <div class="video-overlay">
+                                        <div class="play-btn">
+                                            <i class="fas fa-play"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="video-info">
+                                    <h3 class="video-title">African Startup Funding Landscape 2024</h3>
+                                    <div class="video-meta">
+                                        <span><i class="far fa-calendar"></i> 3 days ago</span>
+                                        <span>52:18</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="video-card fade-in">
+                                <div class="video-thumbnail">
+                                    <img src="https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80" alt="Digital Nomads">
+                                    <div class="video-overlay">
+                                        <div class="play-btn">
+                                            <i class="fas fa-play"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="video-info">
+                                    <h3 class="video-title">Digital Nomad Communities in Africa</h3>
+                                    <div class="video-meta">
+                                        <span><i class="far fa-calendar"></i> 5 days ago</span>
+                                        <span>38:45</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Community Page -->
+        <div id="community" class="page-content" style="display: none;">
+            <div class="container">
+                <div class="content-section">
+                    <h1 class="page-title">Community Hub</h1>
+                    <p style="margin-bottom: 30px; font-size: 1.1rem;">Connect with fellow members, join discussions, and participate in community activities.</p>
+
+                    <!-- Create New Thread Form -->
+                    <div class="create-thread-btn">
+                        <button class="btn-primary" onclick="showCreateThreadModal()">
+                            <i class="fas fa-plus"></i> Create New Discussion Thread
+                        </button>
+                    </div>
+
+                    <div class="grid-2">
+                        <div>
+                            <h2 class="page-subtitle">Discussion Forums</h2>
+                            <div class="forum-category">
+                                <h3 class="forum-title">Tech & Innovation</h3>
+                                <div class="forum-thread fade-in">
+                                    <h4 class="thread-title">Best programming languages for African startups in 2024?</h4>
+                                    <div class="thread-meta">
+                                        <span>Started by TechJedi</span>
+                                        <span>245 replies</span>
+                                        <span>2 hours ago</span>
+                                    </div>
+                                </div>
+                                <div class="forum-thread fade-in">
+                                    <h4 class="thread-title">African solutions to global tech challenges</h4>
+                                    <div class="thread-meta">
+                                        <span>Started by InnovateAfrica</span>
+                                        <span>189 replies</span>
+                                        <span>1 day ago</span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="forum-category">
+                                <h3 class="forum-title">Culture & Society</h3>
+                                <div class="forum-thread fade-in">
+                                    <h4 class="thread-title">How is tech changing traditional African industries?</h4>
+                                    <div class="thread-meta">
+                                        <span>Started by CultureCurator</span>
+                                        <span>156 replies</span>
+                                        <span>3 days ago</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h2 class="page-subtitle">Leaderboard</h2>
+                            <div class="leaderboard-table">
+                                <div class="leaderboard-header">
+                                    <div>Rank</div>
+                                    <div>Member</div>
+                                    <div>Points</div>
+                                    <div>Badges</div>
+                                </div>
+                                
+                                <div class="leaderboard-row">
+                                    <div class="rank">#1</div>
+                                    <div class="user-info">
+                                        <div class="avatar">TJ</div>
+                                        <div>
+                                            <div>TechJedi</div>
+                                            <div style="font-size: 0.8rem; opacity: 0.7;">Nairobi</div>
+                                        </div>
+                                    </div>
+                                    <div>2,450</div>
+                                    <div><span class="badge">Top Listener</span></div>
+                                </div>
+                                
+                                <div class="leaderboard-row">
+                                    <div class="rank">#2</div>
+                                    <div class="user-info">
+                                        <div class="avatar">MK</div>
+                                        <div>
+                                            <div>Makena</div>
+                                            <div style="font-size: 0.8rem; opacity: 0.7;">Kampala</div>
+                                        </div>
+                                    </div>
+                                    <div>2,120</div>
+                                    <div><span class="badge">Moderator</span></div>
+                                </div>
+                                
+                                <div class="leaderboard-row">
+                                    <div class="rank">#3</div>
+                                    <div class="user-info">
+                                        <div class="avatar">DD</div>
+                                        <div>
+                                            <div>DigitalDiaspora</div>
+                                            <div style="font-size: 0.8rem; opacity: 0.7;">Diaspora</div>
+                                        </div>
+                                    </div>
+                                    <div>1,980</div>
+                                    <div><span class="badge">Early Supporter</span></div>
+                                </div>
+                            </div>
+
+                            <!-- Community Guidelines Form -->
+                            <div class="card" style="margin-top: 30px;">
+                                <h3 class="card-title">Report Content</h3>
+                                <p style="margin-top: 10px; margin-bottom: 15px; font-size: 0.9rem;">Report inappropriate content or behavior</p>
+                                <form id="reportForm" style="margin-top: 15px;">
+                                    <div class="form-group">
+                                        <label class="form-label required" for="reportType">Report Type</label>
+                                        <select id="reportType" class="form-select" required>
+                                            <option value="">Select type</option>
+                                            <option value="spam">Spam</option>
+                                            <option value="harassment">Harassment</option>
+                                            <option value="inappropriate">Inappropriate Content</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label required" for="reportDetails">Details</label>
+                                        <textarea id="reportDetails" class="form-textarea" rows="3" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn-secondary" style="width: 100%;">Submit Report</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grid-2" style="margin-top: 60px;">
+                        <div class="card">
+                            <h3 class="card-title">Member Benefits</h3>
+                            <ul style="padding-left: 20px; margin-top: 15px;">
+                                <li style="margin-bottom: 10px;">✅ Exclusive access to community events</li>
+                                <li style="margin-bottom: 10px;">✅ Early notification of new content</li>
+                                <li style="margin-bottom: 10px;">✅ Direct interaction with hosts and guests</li>
+                                <li style="margin-bottom: 10px;">✅ Voting rights on future content</li>
+                                <li style="margin-bottom: 10px;">✅ Badges and recognition for contributions</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h3 class="card-title">Join the Conversation</h3>
+                            <p style="margin-top: 15px;">Create your account today to participate in discussions, earn badges, and connect with like-minded individuals across Africa and beyond.</p>
+                            <div style="display: flex; gap: 15px; margin-top: 20px;">
+                                <button class="btn-primary" onclick="showRegisterModal()">Sign Up Free</button>
+                                <button class="btn-secondary" onclick="loadPage('events')">View Upcoming Events</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Live Events Page -->
+        <div id="events" class="page-content" style="display: none;">
+            <div class="container">
+                <div class="content-section">
+                    <h1 class="page-title">Live Events</h1>
+                    <p style="margin-bottom: 30px; font-size: 1.1rem;">Join our live sessions, AMAs, and virtual meetups. Connect in real-time with hosts and community members.</p>
+
+                    <!-- Event RSVP Form -->
+                    <div class="form-container fade-in" style="margin-bottom: 60px;">
+                        <div class="form-card">
+                            <div class="form-header">
+                                <h2 class="form-title">RSVP for Upcoming Events</h2>
+                                <p class="form-subtitle">Secure your spot at our upcoming live events</p>
+                            </div>
+                            
+                            <form id="rsvpForm">
+                                <div class="form-message" id="rsvpFormMessage"></div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label required" for="rsvpEvent">Select Event</label>
+                                    <select id="rsvpEvent" class="form-select" required>
+                                        <option value="">Choose an event</option>
+                                        <option value="ama-tech-careers">AMA: Tech Careers in Africa 2024 (Mar 10, 8:00 PM EAT)</option>
+                                        <option value="ai-ethics">Virtual Meetup: AI & Ethics in African Context (Mar 15, 7:00 PM EAT)</option>
+                                        <option value="women-in-tech">Women in Tech Panel (Mar 18, 6:00 PM EAT)</option>
+                                        <option value="blockchain-web3">Blockchain & Web3 Deep Dive (Mar 22, 8:00 PM EAT)</option>
+                                        <option value="community-awards">Community Awards Night (Mar 30, 7:30 PM EAT)</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label required" for="rsvpName">Full Name</label>
+                                        <input type="text" id="rsvpName" class="form-input" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label required" for="rsvpEmail">Email Address</label>
+                                        <input type="email" id="rsvpEmail" class="form-input" required>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="rsvpQuestions">Questions for Hosts (Optional)</label>
+                                    <textarea id="rsvpQuestions" class="form-textarea" rows="3" placeholder="Any questions you'd like answered during the event?"></textarea>
+                                </div>
+                                
+                                <div class="form-checkbox">
+                                    <input type="checkbox" id="rsvpNotifications" checked>
+                                    <label for="rsvpNotifications">Send me event reminders and updates</label>
+                                </div>
+                                
+                                <div class="form-footer">
+                                    <button type="submit" class="btn-primary" style="width: 100%;">Confirm RSVP</button>
+                                    <p style="margin-top: 15px; color: #aaa;">You'll receive a confirmation email with joining instructions.</p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div>
+                            <h2 class="page-subtitle">Upcoming Events</h2>
+                            <div class="event-card fade-in">
+                                <div class="live-badge">LIVE NOW</div>
+                                <h3>AMA: Tech Careers in Africa 2024</h3>
+                                <p class="event-time"><i class="far fa-clock"></i> Today, 8:00 PM EAT</p>
+                                <p>Join our special guest from Andela as we discuss career opportunities in the African tech space. Q&A session included.</p>
+                                <div class="countdown">
+                                    <div class="countdown-item">
+                                        <div class="countdown-value" id="hours">02</div>
+                                        <div class="countdown-label">HOURS</div>
+                                    </div>
+                                    <div class="countdown-item">
+                                        <div class="countdown-value" id="minutes">45</div>
+                                        <div class="countdown-label">MINUTES</div>
+                                    </div>
+                                    <div class="countdown-item">
+                                        <div class="countdown-value" id="seconds">30</div>
+                                        <div class="countdown-label">SECONDS</div>
+                                    </div>
+                                </div>
+                                <button class="btn-primary" style="width: 100%;">Join Live Stream</button>
+                            </div>
+
+                            <div class="event-card fade-in" style="margin-top: 30px;">
+                                <h3>Virtual Meetup: AI & Ethics in African Context</h3>
+                                <p class="event-time"><i class="far fa-clock"></i> March 15, 7:00 PM EAT</p>
+                                <p>Discussion on ethical AI development with industry experts from across Africa. Interactive workshop included.</p>
+                                <button class="btn-secondary" style="width: 100%; margin-top: 20px;">Set Reminder</button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h2 class="page-subtitle">Event Calendar</h2>
+                            <div class="card" style="height: 100%;">
+                                <h3 class="card-title">March 2024</h3>
+                                <div style="margin-top: 20px;">
+                                    <div style="padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <span><strong>Mar 10:</strong> Startup Funding Workshop</span>
+                                            <span style="color: var(--primary-yellow);">3:00 PM</span>
+                                        </div>
+                                    </div>
+                                    <div style="padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <span><strong>Mar 18:</strong> Women in Tech Panel</span>
+                                            <span style="color: var(--primary-yellow);">6:00 PM</span>
+                                        </div>
+                                    </div>
+                                    <div style="padding: 15px; border-bottom: 1px solid rgba(255,255,255,0.1);">
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <span><strong>Mar 22:</strong> Blockchain & Web3 Deep Dive</span>
+                                            <span style="color: var(--primary-yellow);">8:00 PM</span>
+                                        </div>
+                                    </div>
+                                    <div style="padding: 15px;">
+                                        <div style="display: flex; justify-content: space-between;">
+                                            <span><strong>Mar 30:</strong> Community Awards Night</span>
+                                            <span style="color: var(--primary-yellow);">7:30 PM</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Event Proposal Form -->
+                    <div class="card" style="margin-top: 60px;">
+                        <h3 class="card-title">Host Your Own Event</h3>
+                        <p style="margin-top: 15px; margin-bottom: 20px;">Have an idea for a community event? Submit your proposal below.</p>
+                        
+                        <form id="eventProposalForm">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label required" for="eventTitle">Event Title</label>
+                                    <input type="text" id="eventTitle" class="form-input" required>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label required" for="eventType">Event Type</label>
+                                    <select id="eventType" class="form-select" required>
+                                        <option value="">Select type</option>
+                                        <option value="workshop">Workshop</option>
+                                        <option value="panel">Panel Discussion</option>
+                                        <option value="ama">AMA Session</option>
+                                        <option value="networking">Networking Event</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label class="form-label required" for="eventDescription">Event Description</label>
+                                <textarea id="eventDescription" class="form-textarea" rows="4" required></textarea>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="proposerName">Your Name</label>
+                                    <input type="text" id="proposerName" class="form-input">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="proposerEmail">Your Email</label>
+                                    <input type="email" id="proposerEmail" class="form-input">
+                                </div>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary" style="width: 100%;">Submit Event Proposal</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Polls Page -->
+        <div id="polls" class="page-content" style="display: none;">
+            <div class="container">
+                <div class="content-section">
+                    <h1 class="page-title">Polls & Feedback</h1>
+                    <p style="margin-bottom: 30px; font-size: 1.1rem;">Your voice shapes our content. Vote on upcoming topics, give feedback, and help us create what matters to you.</p>
+
+                    <!-- Create Poll Form -->
+                    <div class="create-poll-form fade-in" style="margin-bottom: 60px;">
+                        <div class="form-card">
+                            <div class="form-header">
+                                <h2 class="form-title">Create a New Poll</h2>
+                                <p class="form-subtitle">Propose a poll for the community to vote on</p>
+                            </div>
+                            
+                            <form id="createPollForm">
+                                <div class="form-message" id="pollFormMessage"></div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label required" for="pollQuestion">Poll Question</label>
+                                    <input type="text" id="pollQuestion" class="form-input" placeholder="e.g., 'What topic should we cover next?'" required>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label required" for="pollCategory">Category</label>
+                                    <select id="pollCategory" class="form-select" required>
+                                        <option value="">Select category</option>
+                                        <option value="content">Content Topics</option>
+                                        <option value="format">Content Format</option>
+                                        <option value="guest">Guest Suggestions</option>
+                                        <option value="community">Community Decisions</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label required">Poll Options (Minimum 2)</label>
+                                    <div id="pollOptionsContainer">
+                                        <div class="poll-option-input">
+                                            <input type="text" class="form-input poll-option-field" placeholder="Option 1" required>
+                                            <button type="button" class="remove-option-btn" onclick="removePollOption(this)" style="display: none;">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                        </div>
+                                        <div class="poll-option-input">
+                                            <input type="text" class="form-input poll-option-field" placeholder="Option 2" required>
+                                            <button type="button" class="remove-option-btn" onclick="removePollOption(this)">
+                                                <i class="fas fa-minus"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="add-option-btn" onclick="addPollOption()" style="margin-top: 10px;">
+                                        <i class="fas fa-plus"></i> Add Another Option
+                                    </button>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label class="form-label" for="pollDescription">Description (Optional)</label>
+                                    <textarea id="pollDescription" class="form-textarea" rows="3" placeholder="Add more context about this poll..."></textarea>
+                                </div>
+                                
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label" for="pollDuration">Duration</label>
+                                        <select id="pollDuration" class="form-select">
+                                            <option value="3">3 days</option>
+                                            <option value="7" selected>1 week</option>
+                                            <option value="14">2 weeks</option>
+                                            <option value="30">1 month</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="pollVisibility">Visibility</label>
+                                        <select id="pollVisibility" class="form-select">
+                                            <option value="public">Public (All members)</option>
+                                            <option value="verified">Verified Members Only</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-footer">
+                                    <button type="submit" class="btn-primary" style="width: 100%;">Create Poll</button>
+                                    <p style="margin-top: 15px; color: #aaa;">Polls will be reviewed by moderators before being published.</p>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="grid-2">
+                        <div>
+                            <h2 class="page-subtitle">Active Polls</h2>
+                            <div class="poll-card fade-in">
+                                <h3 class="poll-question">What topic should we cover in our next deep-dive episode?</h3>
+                                <div class="poll-option" data-votes="45">
+                                    <div class="poll-bar"></div>
+                                    <div class="poll-text">
+                                        <span>Blockchain & Web3 in Africa</span>
+                                        <span class="poll-percentage">45%</span>
+                                    </div>
+                                </div>
+                                <div class="poll-option" data-votes="30">
+                                    <div class="poll-bar"></div>
+                                    <div class="poll-text">
+                                        <span>Renewable Energy Tech</span>
+                                        <span class="poll-percentage">30%</span>
+                                    </div>
+                                </div>
+                                <div class="poll-option" data-votes="15">
+                                    <div class="poll-bar"></div>
+                                    <div class="poll-text">
+                                        <span>Digital Content Creation</span>
+                                        <span class="poll-percentage">15%</span>
+                                    </div>
+                                </div>
+                                <div class="poll-option" data-votes="10">
+                                    <div class="poll-bar"></div>
+                                    <div class="poll-text">
+                                        <span>Mental Health in Tech</span>
+                                        <span class="poll-percentage">10%</span>
+                                    </div>
+                                </div>
+                                <p style="margin-top: 20px; opacity: 0.7; font-size: 0.9rem;">Total Votes: 1,240 | Ends in 3 days</p>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h2 class="page-subtitle">Submit Topic Ideas</h2>
+                            <div class="card" style="margin-bottom: 30px;">
+                                <h3 class="card-title">Suggest a Topic</h3>
+                                <form id="topicSuggestionForm" style="margin-top: 20px;">
+                                    <div class="form-group">
+                                        <label class="form-label required" for="topicTitle">Topic Title</label>
+                                        <input type="text" id="topicTitle" class="form-input" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label required" for="topicDescription">Why is this topic important?</label>
+                                        <textarea id="topicDescription" class="form-textarea" rows="3" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn-primary" style="width: 100%;">Submit for Voting</button>
+                                </form>
+                            </div>
+
+                            <!-- Feedback Form -->
+                            <div class="card">
+                                <h3 class="card-title">Give Feedback</h3>
+                                <p style="margin-top: 10px; margin-bottom: 15px; font-size: 0.9rem;">Help us improve our content and community</p>
+                                <form id="feedbackForm" style="margin-top: 15px;">
+                                    <div class="form-group">
+                                        <label class="form-label required" for="feedbackType">Feedback Type</label>
+                                        <select id="feedbackType" class="form-select" required>
+                                            <option value="">Select type</option>
+                                            <option value="content">Content Feedback</option>
+                                            <option value="community">Community Feedback</option>
+                                            <option value="technical">Technical Issues</option>
+                                            <option value="suggestion">General Suggestion</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label required" for="feedbackMessage">Your Feedback</label>
+                                        <textarea id="feedbackMessage" class="form-textarea" rows="3" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn-secondary" style="width: 100%;">Submit Feedback</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact Page -->
+        <div id="contact" class="page-content" style="display: none;">
+            <div class="container">
+                <div class="content-section">
+                    <h1 class="page-title">Contact & Collaborate</h1>
+                    <p style="margin-bottom: 30px; font-size: 1.1rem;">Get in touch for partnerships, collaborations, or just to say hello. We'd love to hear from you!</p>
+
+                    <div class="grid-2">
+                        <div>
+                            <h2 class="page-subtitle">Send Us a Message</h2>
+                            <div class="contact-form">
+                                <div class="form-card">
+                                    <form id="contactForm">
+                                        <div class="form-message" id="contactFormMessage"></div>
+                                        
+                                        <div class="form-row">
+                                            <div class="form-group">
+                                                <label class="form-label required" for="contactFirstName">First Name</label>
+                                                <input type="text" id="contactFirstName" class="form-input" required>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="form-label required" for="contactLastName">Last Name</label>
+                                                <input type="text" id="contactLastName" class="form-input" required>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label required" for="contactEmail">Email Address</label>
+                                            <input type="email" id="contactEmail" class="form-input" required>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label required" for="contactSubject">Subject</label>
+                                            <select id="contactSubject" class="form-select" required>
+                                                <option value="">Select a subject</option>
+                                                <option value="partnership">Partnership Inquiry</option>
+                                                <option value="guest">Guest Appearance</option>
+                                                <option value="sponsorship">Sponsorship Opportunity</option>
+                                                <option value="collaboration">Content Collaboration</option>
+                                                <option value="support">Technical Support</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="form-label required" for="contactMessage">Message</label>
+                                            <textarea id="contactMessage" class="form-textarea" rows="5" required></textarea>
+                                        </div>
+                                        
+                                        <div class="form-checkbox">
+                                            <input type="checkbox" id="contactNewsletter" checked>
+                                            <label for="contactNewsletter">Subscribe to our newsletter for updates</label>
+                                        </div>
+                                        
+                                        <div class="form-footer">
+                                            <button type="submit" class="btn-primary" style="width: 100%;">Send Message</button>
+                                            <p style="margin-top: 15px; color: #aaa;">We typically respond within 24-48 hours.</p>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>
+                            <h2 class="page-subtitle">Collaboration Forms</h2>
+                            
+                            <!-- Partnership Form -->
+                            <div class="card" style="margin-bottom: 30px;">
+                                <h3 class="card-title">Partnership Inquiry</h3>
+                                <form id="partnershipForm" style="margin-top: 15px;">
+                                    <div class="form-group">
+                                        <label class="form-label required" for="companyName">Company/Organization</label>
+                                        <input type="text" id="companyName" class="form-input" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label required" for="partnershipType">Partnership Type</label>
+                                        <select id="partnershipType" class="form-select" required>
+                                            <option value="">Select type</option>
+                                            <option value="sponsorship">Sponsorship</option>
+                                            <option value="co-production">Co-Production</option>
+                                            <option value="event">Event Partnership</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn-secondary" style="width: 100%;">Submit Partnership Inquiry</button>
+                                </form>
+                            </div>
+
+                            <!-- Guest Application Form -->
+                            <div class="card">
+                                <h3 class="card-title">Guest Application</h3>
+                                <p style="margin-top: 10px; margin-bottom: 15px; font-size: 0.9rem;">Interested in being a guest on our show?</p>
+                                <form id="guestApplicationForm" style="margin-top: 15px;">
+                                    <div class="form-group">
+                                        <label class="form-label required" for="guestName">Your Name</label>
+                                        <input type="text" id="guestName" class="form-input" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label required" for="guestExpertise">Area of Expertise</label>
+                                        <input type="text" id="guestExpertise" class="form-input" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label required" for="guestTopic">Proposed Topic</label>
+                                        <textarea id="guestTopic" class="form-textarea" rows="2" required></textarea>
+                                    </div>
+                                    <button type="submit" class="btn-secondary" style="width: 100%;">Apply as Guest</button>
+                                </form>
+                            </div>
+
+                            <!-- Quick Contact Info -->
+                            <div class="card" style="margin-top: 30px;">
+                                <h3 class="card-title">Quick Links</h3>
+                                <div style="margin-top: 15px;">
+                                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                                        <i class="fas fa-envelope" style="color: var(--primary-yellow);"></i>
+                                        <span>hello@innitnetworks.ke</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                                        <i class="fas fa-phone" style="color: var(--primary-yellow);"></i>
+                                        <span>+254 700 000 000</span>
+                                    </div>
+                                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 15px;">
+                                        <i class="fas fa-map-marker-alt" style="color: var(--primary-yellow);"></i>
+                                        <span>Nairobi, Kenya</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        INNIT<span style="color: var(--primary-yellow);">NETWORKS</span>
+                    </div>
+                    <p>Turning viewers into followers, followers into members, and members into family.</p>
+                    <div class="social-icons">
+                        <a href="#" class="social-icon"><i class="fab fa-youtube"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-discord"></i></a>
+                        <a href="#" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home" onclick="loadPage('home')">Home</a></li>
+                        <li><a href="#videos" onclick="loadPage('videos')">Videos</a></li>
+                        <li><a href="#community" onclick="loadPage('community')">Community</a></li>
+                        <li><a href="#events" onclick="loadPage('events')">Live Events</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Community</h3>
+                    <ul>
+                        <li><a href="#community" onclick="loadPage('community')">Forums</a></li>
+                        <li><a href="#polls" onclick="loadPage('polls')">Polls</a></li>
+                        <li><a href="#community" onclick="loadPage('community')">Leaderboard</a></li>
+                        <li><a href="#events" onclick="loadPage('events')">Events</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Legal</h3>
+                    <ul>
+                        <li><a href="#" onclick="showTermsModal()">Privacy Policy</a></li>
+                        <li><a href="#" onclick="showTermsModal()">Terms of Service</a></li>
+                        <li><a href="#" onclick="showTermsModal()">Community Guidelines</a></li>
+                        <li><a href="#contact" onclick="loadPage('contact')">Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2024 INNIT NETWORKS KE. All rights reserved. | Powered by the Community</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Page Navigation Dots -->
+    <div class="page-indicator">
+        <div class="page-dot active" data-page="home"></div>
+        <div class="page-dot" data-page="about"></div>
+        <div class="page-dot" data-page="videos"></div>
+        <div class="page-dot" data-page="community"></div>
+        <div class="page-dot" data-page="events"></div>
+        <div class="page-dot" data-page="polls"></div>
+        <div class="page-dot" data-page="contact"></div>
+    </div>
+
+    <!-- Modals -->
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Login to Your Account</h2>
+                <button class="modal-close" onclick="closeModal('loginModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="loginForm">
+                    <div class="form-message" id="loginFormMessage"></div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required" for="loginEmail">Email Address</label>
+                        <input type="email" id="loginEmail" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required" for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <button type="submit" class="btn-primary" style="width: 100%;">Login</button>
+                        <p style="margin-top: 15px; text-align: center;">
+                            Don't have an account? <a href="#" class="form-link" onclick="closeModal('loginModal'); showRegisterModal()">Sign up here</a>
+                        </p>
+                        <p style="margin-top: 10px; text-align: center;">
+                            <a href="#" class="form-link" onclick="showForgotPasswordModal()">Forgot your password?</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Join Our Community</h2>
+                <button class="modal-close" onclick="closeModal('registerModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm">
+                    <div class="form-message" id="registerFormMessage"></div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label required" for="registerFirstName">First Name</label>
+                            <input type="text" id="registerFirstName" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required" for="registerLastName">Last Name</label>
+                            <input type="text" id="registerLastName" class="form-input" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required" for="registerEmail">Email Address</label>
+                        <input type="email" id="registerEmail" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label required" for="registerPassword">Password</label>
+                            <input type="password" id="registerPassword" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label required" for="registerConfirmPassword">Confirm Password</label>
+                            <input type="password" id="registerConfirmPassword" class="form-input" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required" for="registerUsername">Username</label>
+                        <input type="text" id="registerUsername" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="registerLocation">Location (Optional)</label>
+                        <input type="text" id="registerLocation" class="form-input" placeholder="e.g., Nairobi, Kenya">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="registerInterests">Interests (Optional)</label>
+                        <select id="registerInterests" class="form-select" multiple style="height: 100px;">
+                            <option value="tech">Technology</option>
+                            <option value="startups">Startups & Entrepreneurship</option>
+                            <option value="culture">Culture & Society</option>
+                            <option value="innovation">Innovation</option>
+                            <option value="education">Education</option>
+                            <option value="creative">Creative Arts</option>
+                        </select>
+                        <small style="color: #aaa; display: block; margin-top: 5px;">Hold Ctrl/Cmd to select multiple</small>
+                    </div>
+                    
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="registerTerms" required>
+                        <label for="registerTerms">I agree to the <a href="#" onclick="showTermsModal()">Terms of Service</a> and <a href="#" onclick="showTermsModal()">Privacy Policy</a></label>
+                    </div>
+                    
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="registerNewsletter" checked>
+                        <label for="registerNewsletter">Subscribe to our newsletter for updates</label>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <button type="submit" class="btn-primary" style="width: 100%;">Create Account</button>
+                        <p style="margin-top: 15px; text-align: center;">
+                            Already have an account? <a href="#" class="form-link" onclick="closeModal('registerModal'); showLoginModal()">Login here</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Create Thread Modal -->
+    <div class="modal" id="createThreadModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Create New Discussion Thread</h2>
+                <button class="modal-close" onclick="closeModal('createThreadModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="createThreadForm">
+                    <div class="form-message" id="threadFormMessage"></div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required" for="threadTitle">Thread Title</label>
+                        <input type="text" id="threadTitle" class="form-input" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required" for="threadCategory">Category</label>
+                        <select id="threadCategory" class="form-select" required>
+                            <option value="">Select category</option>
+                            <option value="tech">Tech & Innovation</option>
+                            <option value="culture">Culture & Society</option>
+                            <option value="business">Startups & Business</option>
+                            <option value="feedback">Feedback & Suggestions</option>
+                            <option value="offtopic">Off-Topic</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required" for="threadContent">Content</label>
+                        <textarea id="threadContent" class="form-textarea" rows="6" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="threadTags">Tags (comma separated)</label>
+                        <input type="text" id="threadTags" class="form-input" placeholder="e.g., AI, startups, africa">
+                    </div>
+                    
+                    <div class="form-checkbox">
+                        <input type="checkbox" id="threadNotify" checked>
+                        <label for="threadNotify">Notify me of replies</label>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <button type="submit" class="btn-primary" style="width: 100%;">Create Thread</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div class="modal" id="profileModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Your Profile</h2>
+                <button class="modal-close" onclick="closeModal('profileModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="profile-header">
+                    <div class="profile-avatar" id="modalUserAvatar">TJ</div>
+                    <h3 class="profile-name" id="modalUserName">TechJedi</h3>
+                    <p id="modalUserEmail">techjedi@example.com</p>
+                    <div class="profile-badges">
+                        <span class="profile-badge">Top Contributor</span>
+                        <span class="profile-badge">Early Supporter</span>
+                        <span class="profile-badge">Active Member</span>
+                    </div>
+                </div>
+                
+                <form id="profileForm">
+                    <div class="form-message" id="profileFormMessage"></div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label" for="profileFirstName">First Name</label>
+                            <input type="text" id="profileFirstName" class="form-input" value="Tendai">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="profileLastName">Last Name</label>
+                            <input type="text" id="profileLastName" class="form-input" value="J.">
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="profileUsername">Username</label>
+                        <input type="text" id="profileUsername" class="form-input" value="TechJedi">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="profileLocation">Location</label>
+                        <input type="text" id="profileLocation" class="form-input" value="Nairobi, Kenya">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="profileBio">Bio</label>
+                        <textarea id="profileBio" class="form-textarea" rows="3">Tech enthusiast passionate about African innovation and community building.</textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label" for="profileInterests">Interests</label>
+                        <select id="profileInterests" class="form-select" multiple style="height: 100px;">
+                            <option value="tech" selected>Technology</option>
+                            <option value="startups" selected>Startups & Entrepreneurship</option>
+                            <option value="culture" selected>Culture & Society</option>
+                            <option value="innovation" selected>Innovation</option>
+                            <option value="education">Education</option>
+                            <option value="creative">Creative Arts</option>
+                        </select>
+                        <small style="color: #aaa; display: block; margin-top: 5px;">Hold Ctrl/Cmd to select multiple</small>
+                    </div>
+                    
+                    <div class="form-footer">
+                        <button type="submit" class="btn-primary" style="width: 100%;">Update Profile</button>
+                        <button type="button" class="btn-secondary" style="width: 100%; margin-top: 10px;" onclick="logout()">Logout</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Terms Modal -->
+    <div class="modal" id="termsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Terms & Policies</h2>
+                <button class="modal-close" onclick="closeModal('termsModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div style="max-height: 400px; overflow-y: auto; padding-right: 10px;">
+                    <h3 style="color: var(--primary-yellow); margin-bottom: 15px;">Community Guidelines</h3>
+                    <p>Our community is built on respect, inclusivity, and constructive dialogue. By participating in our community, you agree to:</p>
+                    <ul style="padding-left: 20px; margin-top: 10px; margin-bottom: 20px;">
+                        <li style="margin-bottom: 8px;">Be respectful and considerate of all members</li>
+                        <li style="margin-bottom: 8px;">Engage in constructive, on-topic discussions</li>
+                        <li style="margin-bottom: 8px;">Respect diverse opinions and perspectives</li>
+                        <li style="margin-bottom: 8px;">Avoid spam, self-promotion, or commercial solicitation</li>
+                        <li style="margin-bottom: 8px;">Protect the privacy of yourself and others</li>
+                        <li style="margin-bottom: 8px;">Report inappropriate content or behavior</li>
+                    </ul>
+                    
+                    <h3 style="color: var(--primary-yellow); margin-bottom: 15px; margin-top: 30px;">Privacy Policy</h3>
+                    <p>We value your privacy and are committed to protecting your personal information. Our privacy policy outlines how we collect, use, and protect your data.</p>
+                    
+                    <h3 style="color: var(--primary-yellow); margin-bottom: 15px; margin-top: 30px;">Terms of Service</h3>
+                    <p>By using our platform, you agree to our terms of service, which govern your use of our website, content, and community features.</p>
+                    
+                    <div class="form-checkbox" style="margin-top: 30px;">
+                        <input type="checkbox" id="agreeTerms">
+                        <label for="agreeTerms">I have read and agree to the terms and policies</label>
+                    </div>
+                </div>
+                
+                <div class="form-footer" style="margin-top: 20px;">
+                    <button class="btn-primary" onclick="closeModal('termsModal')">Accept & Continue</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Forgot Password Modal -->
+    <div class="modal" id="forgotPasswordModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="modal-title">Reset Your Password</h2>
+                <button class="modal-close" onclick="closeModal('forgotPasswordModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="forgotPasswordForm">
+                    <div class="form-message" id="passwordFormMessage"></div>
+                    
+                    <div class="form-group">
+                        <label class="form-label required" for="resetEmail">Email Address</label>
+                        <input type="email" id="resetEmail" class="form-input" required>
+                    </div>
+                    
+                    <p style="margin-bottom: 20px; color: #aaa; font-size: 0.9rem;">Enter your email address and we'll send you a link to reset your password.</p>
+                    
+                    <div class="form-footer">
+                        <button type="submit" class="btn-primary" style="width: 100%;">Send Reset Link</button>
+                        <p style="margin-top: 15px; text-align: center;">
+                            <a href="#" class="form-link" onclick="closeModal('forgotPasswordModal'); showLoginModal()">Back to login</a>
+                        </p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Background images for each page
+        const pageBackgrounds = {
+            'home': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+            'about': 'https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+            'videos': 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+            'community': 'https://images.unsplash.com/photo-1518709268805-4e9042af2176?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+            'events': 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+            'polls': 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80',
+            'contact': 'https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80'
+        };
+
+        // Current page state
+        let currentPage = 'home';
+        let isMobileMenuOpen = false;
+        let isLoggedIn = false;
+        let currentUser = null;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set initial background
+            document.getElementById('pageBackground').style.backgroundImage = `url('${pageBackgrounds['home']}')`;
+            
+            // Initialize animations
+            checkVisibility();
+            updateCountdown();
+            
+            // Set up event listeners
+            setupEventListeners();
+            
+            // Handle hash changes
+            window.addEventListener('hashchange', handleHashChange);
+            handleHashChange();
+            
+            // Check if user is logged in from localStorage
+            checkLoginStatus();
+        });
+
+        // Check login status from localStorage
+        function checkLoginStatus() {
+            const userData = localStorage.getItem('innitUser');
+            if (userData) {
+                currentUser = JSON.parse(userData);
+                isLoggedIn = true;
+                updateUserInterface();
+            }
+        }
+
+        // Update UI based on login status
+        function updateUserInterface() {
+            const loginButton = document.getElementById('loginButton');
+            const userProfile = document.getElementById('userProfile');
+            const userAvatar = document.getElementById('userAvatar');
+            const userName = document.getElementById('userName');
+            
+            if (isLoggedIn && currentUser) {
+                loginButton.style.display = 'none';
+                userProfile.style.display = 'flex';
+                userAvatar.textContent = currentUser.initials || 'U';
+                userName.textContent = currentUser.username || 'User';
+            } else {
+                loginButton.style.display = 'block';
+                userProfile.style.display = 'none';
+            }
+        }
+
+        // Load a specific page
+        function loadPage(pageName) {
+            if (currentPage === pageName) return;
+            
+            // Hide current page
+            document.getElementById(currentPage).style.display = 'none';
+            document.querySelector(`.nav-links a[href="#${currentPage}"]`).classList.remove('active');
+            
+            // Show new page
+            document.getElementById(pageName).style.display = 'block';
+            document.querySelector(`.nav-links a[href="#${pageName}"]`).classList.add('active');
+            
+            // Update current page
+            currentPage = pageName;
+            
+            // Update background
+            document.getElementById('pageBackground').style.backgroundImage = `url('${pageBackgrounds[pageName]}')`;
+            
+            // Update page indicator dots
+            updatePageIndicator(pageName);
+            
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            
+            // Update URL hash
+            window.location.hash = pageName;
+            
+            // Trigger animations for new page
+            setTimeout(checkVisibility, 300);
+            
+            // Close mobile menu if open
+            if (isMobileMenuOpen) {
+                toggleMobileMenu();
+            }
+        }
+
+        // Update page indicator dots
+        function updatePageIndicator(pageName) {
+            document.querySelectorAll('.page-dot').forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.dataset.page === pageName) {
+                    dot.classList.add('active');
+                }
+            });
+        }
+
+        // Handle hash changes
+        function handleHashChange() {
+            const hash = window.location.hash.replace('#', '');
+            if (hash && hash !== currentPage && pageBackgrounds[hash]) {
+                loadPage(hash);
+            }
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Page indicator dots
+            document.querySelectorAll('.page-dot').forEach(dot => {
+                dot.addEventListener('click', function() {
+                    loadPage(this.dataset.page);
+                });
+            });
+
+            // Navbar scroll effect
+            window.addEventListener('scroll', function() {
+                const navbar = document.getElementById('navbar');
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                
+                // Check visibility for animations
+                checkVisibility();
+            });
+
+            // Form submissions
+            setupFormSubmissions();
+            
+            // Video card hover effect
+            document.querySelectorAll('.video-card').forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                });
+            });
+
+            // Poll option selection
+            document.querySelectorAll('.poll-option').forEach(option => {
+                option.addEventListener('click', function() {
+                    if (!isLoggedIn) {
+                        showLoginModal();
+                        return;
+                    }
+                    
+                    // Remove previous selections
+                    document.querySelectorAll('.poll-option').forEach(opt => {
+                        opt.style.background = 'rgba(255, 255, 255, 0.1)';
+                    });
+                    
+                    // Highlight selected
+                    this.style.background = 'rgba(255, 215, 0, 0.3)';
+                    
+                    // Show vote confirmation
+                    const pollText = this.querySelector('.poll-text span:first-child').textContent;
+                    showFormMessage('pollFormMessage', `You voted for: ${pollText}`, 'success');
+                });
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    if (this.getAttribute('href').startsWith('#') && 
+                        this.getAttribute('href').length > 1 &&
+                        pageBackgrounds[this.getAttribute('href').substring(1)]) {
+                        e.preventDefault();
+                        loadPage(this.getAttribute('href').substring(1));
+                    }
+                });
+            });
+        }
+
+        // Setup form submission handlers
+        function setupFormSubmissions() {
+            // Login Form
+            document.getElementById('loginForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('loginEmail').value;
+                const password = document.getElementById('loginPassword').value;
+                
+                // Simulate login
+                if (email && password) {
+                    // Create a mock user
+                    currentUser = {
+                        email: email,
+                        username: email.split('@')[0],
+                        firstName: 'Tendai',
+                        lastName: 'J.',
+                        initials: 'TJ',
+                        location: 'Nairobi, Kenya'
+                    };
+                    
+                    // Save to localStorage
+                    localStorage.setItem('innitUser', JSON.stringify(currentUser));
+                    isLoggedIn = true;
+                    
+                    // Update UI
+                    updateUserInterface();
+                    
+                    // Show success message
+                    showFormMessage('loginFormMessage', 'Login successful!', 'success');
+                    
+                    // Close modal after delay
+                    setTimeout(() => {
+                        closeModal('loginModal');
+                        showFormMessage('loginFormMessage', '', 'success');
+                    }, 1500);
+                } else {
+                    showFormMessage('loginFormMessage', 'Please fill in all required fields', 'error');
+                }
+            });
+
+            // Register Form
+            document.getElementById('registerForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                const firstName = document.getElementById('registerFirstName').value;
+                const lastName = document.getElementById('registerLastName').value;
+                const email = document.getElementById('registerEmail').value;
+                const password = document.getElementById('registerPassword').value;
+                const confirmPassword = document.getElementById('registerConfirmPassword').value;
+                const username = document.getElementById('registerUsername').value;
+                
+                // Validation
+                if (password !== confirmPassword) {
+                    showFormMessage('registerFormMessage', 'Passwords do not match', 'error');
+                    return;
+                }
+                
+                if (firstName && lastName && email && password && username) {
+                    // Create user
+                    currentUser = {
+                        email: email,
+                        username: username,
+                        firstName: firstName,
+                        lastName: lastName,
+                        initials: (firstName[0] + lastName[0]).toUpperCase(),
+                        location: document.getElementById('registerLocation').value || 'Not specified'
+                    };
+                    
+                    // Save to localStorage
+                    localStorage.setItem('innitUser', JSON.stringify(currentUser));
+                    isLoggedIn = true;
+                    
+                    // Update UI
+                    updateUserInterface();
+                    
+                    // Show success message
+                    showFormMessage('registerFormMessage', 'Account created successfully!', 'success');
+                    
+                    // Close modal after delay
+                    setTimeout(() => {
+                        closeModal('registerModal');
+                        showFormMessage('registerFormMessage', '', 'success');
+                    }, 1500);
+                } else {
+                    showFormMessage('registerFormMessage', 'Please fill in all required fields', 'error');
+                }
+            });
+
+            // Contact Form
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showFormMessage('contactFormMessage', 'Thank you for your message! We\'ll get back to you soon.', 'success');
+                setTimeout(() => {
+                    document.getElementById('contactForm').reset();
+                    showFormMessage('contactFormMessage', '', 'success');
+                }, 3000);
+            });
+
+            // Team Application Form
+            document.getElementById('teamApplicationForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showFormMessage('teamFormMessage', 'Application submitted successfully! We\'ll review it and get back to you.', 'success');
+                setTimeout(() => {
+                    document.getElementById('teamApplicationForm').reset();
+                    showFormMessage('teamFormMessage', '', 'success');
+                }, 3000);
+            });
+
+            // Video Request Form
+            document.getElementById('videoRequestForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showFormMessage('videoFormMessage', 'Topic request submitted! Thank you for your suggestion.', 'success');
+                setTimeout(() => {
+                    document.getElementById('videoRequestForm').reset();
+                    showFormMessage('videoFormMessage', '', 'success');
+                }, 3000);
+            });
+
+            // RSVP Form
+            document.getElementById('rsvpForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showFormMessage('rsvpFormMessage', 'RSVP confirmed! You\'ll receive an email with joining instructions.', 'success');
+                setTimeout(() => {
+                    document.getElementById('rsvpForm').reset();
+                    showFormMessage('rsvpFormMessage', '', 'success');
+                }, 3000);
+            });
+
+            // Create Poll Form
+            document.getElementById('createPollForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (!isLoggedIn) {
+                    showLoginModal();
+                    return;
+                }
+                showFormMessage('pollFormMessage', 'Poll created successfully! It will be reviewed by moderators.', 'success');
+                setTimeout(() => {
+                    document.getElementById('createPollForm').reset();
+                    showFormMessage('pollFormMessage', '', 'success');
+                }, 3000);
+            });
+
+            // Topic Suggestion Form
+            document.getElementById('topicSuggestionForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showFormMessage('topicFormMessage', 'Topic suggestion submitted for community voting!', 'success');
+                setTimeout(() => {
+                    document.getElementById('topicSuggestionForm').reset();
+                }, 3000);
+            });
+
+            // Feedback Form
+            document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showFormMessage('feedbackFormMessage', 'Thank you for your feedback! We appreciate your input.', 'success');
+                setTimeout(() => {
+                    document.getElementById('feedbackForm').reset();
+                }, 3000);
+            });
+
+            // Report Form
+            document.getElementById('reportForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showFormMessage('reportFormMessage', 'Report submitted. Our moderators will review it.', 'success');
+                setTimeout(() => {
+                    document.getElementById('reportForm').reset();
+                }, 3000);
+            });
+
+            // Partnership Form
+            document.getElementById('partnershipForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showFormMessage('partnershipFormMessage', 'Partnership inquiry submitted! We\'ll contact you soon.', 'success');
+                setTimeout(() => {
+                    document.getElementById('partnershipForm').reset();
+                }, 3000);
+            });
+
+            // Guest Application Form
+            document.getElementById('guestApplicationForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showFormMessage('guestFormMessage', 'Guest application submitted! We\'ll review it and get back to you.', 'success');
+                setTimeout(() => {
+                    document.getElementById('guestApplicationForm').reset();
+                }, 3000);
+            });
+
+            // Event Proposal Form
+            document.getElementById('eventProposalForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showFormMessage('eventProposalFormMessage', 'Event proposal submitted! Our team will review it.', 'success');
+                setTimeout(() => {
+                    document.getElementById('eventProposalForm').reset();
+                }, 3000);
+            });
+
+            // Create Thread Form
+            document.getElementById('createThreadForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (!isLoggedIn) {
+                    showLoginModal();
+                    return;
+                }
+                showFormMessage('threadFormMessage', 'Thread created successfully!', 'success');
+                setTimeout(() => {
+                    closeModal('createThreadModal');
+                    document.getElementById('createThreadForm').reset();
+                    showFormMessage('threadFormMessage', '', 'success');
+                }, 1500);
+            });
+
+            // Profile Form
+            document.getElementById('profileForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                // Update user data
+                currentUser.firstName = document.getElementById('profileFirstName').value;
+                currentUser.lastName = document.getElementById('profileLastName').value;
+                currentUser.username = document.getElementById('profileUsername').value;
+                currentUser.initials = (currentUser.firstName[0] + currentUser.lastName[0]).toUpperCase();
+                currentUser.location = document.getElementById('profileLocation').value;
+                
+                // Save to localStorage
+                localStorage.setItem('innitUser', JSON.stringify(currentUser));
+                
+                // Update UI
+                updateUserInterface();
+                document.getElementById('modalUserAvatar').textContent = currentUser.initials;
+                document.getElementById('modalUserName').textContent = currentUser.username;
+                
+                showFormMessage('profileFormMessage', 'Profile updated successfully!', 'success');
+                setTimeout(() => {
+                    showFormMessage('profileFormMessage', '', 'success');
+                }, 2000);
+            });
+
+            // Forgot Password Form
+            document.getElementById('forgotPasswordForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                showFormMessage('passwordFormMessage', 'Password reset link sent to your email!', 'success');
+                setTimeout(() => {
+                    document.getElementById('forgotPasswordForm').reset();
+                    closeModal('forgotPasswordModal');
+                    showFormMessage('passwordFormMessage', '', 'success');
+                }, 2000);
+            });
+        }
+
+        // Show form message
+        function showFormMessage(elementId, message, type) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                element.textContent = message;
+                element.className = 'form-message ' + type;
+                setTimeout(() => {
+                    element.className = 'form-message';
+                    element.textContent = '';
+                }, 5000);
+            }
+        }
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const userActions = document.querySelector('.user-actions');
+            const hamburger = document.querySelector('.hamburger');
+            
+            if (!isMobileMenuOpen) {
+                navLinks.style.display = 'flex';
+                userActions.style.display = 'flex';
+                navLinks.style.flexDirection = 'column';
+                navLinks.style.position = 'absolute';
+                navLinks.style.top = '80px';
+                navLinks.style.left = '0';
+                navLinks.style.width = '100%';
+                navLinks.style.background = 'var(--primary-black)';
+                navLinks.style.padding = '20px';
+                navLinks.style.borderTop = '1px solid var(--primary-yellow)';
+                
+                userActions.style.position = 'absolute';
+                userActions.style.top = '300px';
+                userActions.style.left = '0';
+                userActions.style.width = '100%';
+                userActions.style.padding = '20px';
+                userActions.style.flexDirection = 'column';
+                userActions.style.background = 'var(--primary-black)';
+                userActions.style.borderTop = '1px solid rgba(255,215,0,0.3)';
+                
+                hamburger.innerHTML = '<i class="fas fa-times"></i>';
+                isMobileMenuOpen = true;
+            } else {
+                navLinks.style.display = 'none';
+                userActions.style.display = 'none';
+                hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                isMobileMenuOpen = false;
+            }
+        }
+
+        // Show modal functions
+        function showLoginModal() {
+            document.getElementById('loginModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function showRegisterModal() {
+            document.getElementById('registerModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function showCreateThreadModal() {
+            if (!isLoggedIn) {
+                showLoginModal();
+                return;
+            }
+            document.getElementById('createThreadModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function showProfileModal() {
+            if (!isLoggedIn) {
+                showLoginModal();
+                return;
+            }
+            
+            // Populate form with current user data
+            if (currentUser) {
+                document.getElementById('profileFirstName').value = currentUser.firstName || '';
+                document.getElementById('profileLastName').value = currentUser.lastName || '';
+                document.getElementById('profileUsername').value = currentUser.username || '';
+                document.getElementById('profileLocation').value = currentUser.location || '';
+                document.getElementById('modalUserAvatar').textContent = currentUser.initials || 'U';
+                document.getElementById('modalUserName').textContent = currentUser.username || 'User';
+                document.getElementById('modalUserEmail').textContent = currentUser.email || '';
+            }
+            
+            document.getElementById('profileModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function showTermsModal() {
+            document.getElementById('termsModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function showForgotPasswordModal() {
+            document.getElementById('forgotPasswordModal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Logout function
+        function logout() {
+            isLoggedIn = false;
+            currentUser = null;
+            localStorage.removeItem('innitUser');
+            updateUserInterface();
+            closeModal('profileModal');
+            showFormMessage('loginFormMessage', 'Logged out successfully', 'success');
+        }
+
+        // Poll option management
+        function addPollOption() {
+            const container = document.getElementById('pollOptionsContainer');
+            const optionCount = container.children.length + 1;
+            const div = document.createElement('div');
+            div.className = 'poll-option-input';
+            div.innerHTML = `
+                <input type="text" class="form-input poll-option-field" placeholder="Option ${optionCount}" required>
+                <button type="button" class="remove-option-btn" onclick="removePollOption(this)">
+                    <i class="fas fa-minus"></i>
+                </button>
+            `;
+            container.appendChild(div);
+        }
+
+        function removePollOption(button) {
+            const container = document.getElementById('pollOptionsContainer');
+            if (container.children.length > 2) {
+                button.parentElement.remove();
+            }
+        }
+
+        // Animated counter for stats
+        function animateCounter() {
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200;
+            
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-count');
+                    const count = +counter.innerText;
+                    const increment = target / speed;
+                    
+                    if (count < target) {
+                        counter.innerText = Math.ceil(count + increment);
+                        setTimeout(updateCount, 1);
+                    } else {
+                        counter.innerText = target;
+                    }
+                };
+                
+                updateCount();
+            });
+        }
+
+        // Scroll animations
+        function checkVisibility() {
+            const elements = document.querySelectorAll('.fade-in');
+            
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                    
+                    // Animate poll bars when visible
+                    if (element.classList.contains('poll-card')) {
+                        setTimeout(animatePollBars, 300);
+                    }
+                    
+                    // Animate stats when visible
+                    if (element.classList.contains('stat-item')) {
+                        setTimeout(animateCounter, 300);
+                    }
+                }
+            });
+        }
+
+        // Animate poll bars
+        function animatePollBars() {
+            const pollOptions = document.querySelectorAll('.poll-option');
+            let totalVotes = 0;
+            
+            // Calculate total votes
+            pollOptions.forEach(option => {
+                totalVotes += parseInt(option.getAttribute('data-votes'));
+            });
+            
+            // Animate each bar
+            pollOptions.forEach(option => {
+                const votes = parseInt(option.getAttribute('data-votes'));
+                const percentage = (votes / totalVotes) * 100;
+                const bar = option.querySelector('.poll-bar');
+                
+                setTimeout(() => {
+                    bar.style.width = percentage + '%';
+                }, 300);
+            });
+        }
+
+        // Countdown timer
+        function updateCountdown() {
+            const hoursElement = document.getElementById('hours');
+            const minutesElement = document.getElementById('minutes');
+            const secondsElement = document.getElementById('seconds');
+            
+            if (!hoursElement || !minutesElement || !secondsElement) return;
+            
+            // Set target time (2 hours from now)
+            const now = new Date();
+            const target = new Date(now.getTime() + 2 * 60 * 60 * 1000);
+            
+            const update = () => {
+                const now = new Date();
+                const diff = target - now;
+                
+                if (diff > 0) {
+                    const hours = Math.floor(diff / (1000 * 60 * 60));
+                    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                    const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+                    
+                    hoursElement.textContent = hours.toString().padStart(2, '0');
+                    minutesElement.textContent = minutes.toString().padStart(2, '0');
+                    secondsElement.textContent = seconds.toString().padStart(2, '0');
+                }
+            };
+            
+            update();
+            setInterval(update, 1000);
+        }
+
+        // Close modals when clicking outside
+        document.addEventListener('click', function(e) {
+            const modals = document.querySelectorAll('.modal.active');
+            modals.forEach(modal => {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        });
+
+        // Close modals with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modals = document.querySelectorAll('.modal.active');
+                modals.forEach(modal => {
+                    modal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                });
+            }
+        });
+
+        // Check visibility on scroll
+        window.addEventListener('scroll', checkVisibility);
+    </script>
+</body>
+</html>
